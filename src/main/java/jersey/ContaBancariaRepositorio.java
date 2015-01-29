@@ -7,6 +7,7 @@ public class ContaBancariaRepositorio {
 	
 	private static List<ContaBancaria> lista;
 	
+	public static int LAST_ID;
 	
 	public static List<ContaBancaria> getLista(){
 		if(lista == null){

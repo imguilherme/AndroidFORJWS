@@ -10,7 +10,6 @@ public class ContaBancaria {
 	private int conta;
 	private String tipo;
 	
-	
 	public long getId() {
 		return id;
 	}

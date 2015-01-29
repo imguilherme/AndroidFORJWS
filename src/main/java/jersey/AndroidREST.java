@@ -3,6 +3,7 @@ package jersey;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -42,14 +43,25 @@ public class AndroidREST {
 	}
 	
 	@POST
-	@Path("inserir")
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response inserir(ContaBancaria conta){
+	@Path("/inserir")
+	@Consumes("application/x-www-form-urlencoded")
+	public Response inserir(
+			  @FormParam("nome") String nome,
+	            @FormParam("agencia") int agencia,
+	            @FormParam("conta") int conta,
+	            @FormParam("tipo") String tipo
+			){
 		
+		ContaBancaria contaBancaria = new ContaBancaria();
+		contaBancaria.setId(++ContaBancariaRepositorio.LAST_ID);
+		contaBancaria.setNome(nome);
+		contaBancaria.setAgencia(agencia);
+		contaBancaria.setConta(conta);
+		contaBancaria.setTipo(tipo);
 		
-		ContaBancariaRepositorio.getLista().add(conta);
+		ContaBancariaRepositorio.getLista().add(contaBancaria);
 		
-		String resultado =  "Conta salva " + conta.getNome();
+		String resultado =  "Conta salva " + contaBancaria.getNome();
 		return Response.status(201).entity(resultado).build();		
 	}
 	
